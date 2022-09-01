@@ -11,6 +11,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import Icon from '../../images/google-icon2.svg';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
+import { signin, signup } from '../../actions/auth.js'
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
@@ -26,7 +27,12 @@ const Auth = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+
+        if (isSignup) {
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
     }
 
     const handleChange = (e) => {
