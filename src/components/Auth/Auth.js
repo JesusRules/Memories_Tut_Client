@@ -3,16 +3,19 @@ import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@
 import useStyles from './styles.js';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Input from './Input.js'
+import { useDispatch } from 'react-redux';
 // import { GoogleLogin } from 'react-google-login';
 import { GoogleLogin } from '@react-oauth/google';
 // import Icon from './icon.js';
 import Icon from '../../images/google-icon2.svg';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
 
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
@@ -21,7 +24,7 @@ const Auth = () => {
     }
 
     const handleChange = () => {
-
+        
     };
 
     const switchMode = () => {
@@ -30,7 +33,17 @@ const Auth = () => {
     }
 
     const googleSuccess = async (res) => {
-        const result = res?.profileObj; //if error, doesnt throw one.
+        
+        try {
+            // const result = res?.clientId; //profileObj???? DONT USE
+
+            const token = res?.credential; //tokenId
+            const result = jwt_decode(res?.credential);
+
+            dispatch({ type: 'AUTH', data: { result, token}});
+        } catch (error) {
+            console.log(error);
+        }
     }
     const googleFailure = (error) => {
         console.log(error);
@@ -39,6 +52,7 @@ const Auth = () => {
     
 
   return (
+    // <GoogleOAuthProvider clientId="348980586620-guceha6p9meflkheutqc2af9e44ikt47.apps.googleusercontent.com">
     <Container component="main" maxWidth="xs">
         <Paper className={classes.paper} elevation={3}>
             <Avatar className={classes.avatar}>
@@ -65,7 +79,7 @@ const Auth = () => {
                 </Button>
 
                 <GoogleLogin 
-                    clientId="348980586620-guceha6p9meflkheutqc2af9e44ikt47.apps.googleusercontent.com"
+                    // clientId="348980586620-guceha6p9meflkheutqc2af9e44ikt47.apps.googleusercontent.com"
                     render={(renderProps) => (
                         <Button 
                         className={classes.googleButton} 
@@ -80,7 +94,7 @@ const Auth = () => {
                         </Button>
                     )}
                     onSuccess={googleSuccess}
-                    onFailure={googleFailure}
+                    onError={googleFailure}
                     cookiePolicy='single_host_origin'
                 />
 
@@ -94,6 +108,7 @@ const Auth = () => {
             </form>
         </Paper>
     </Container>
+    // {/* </GoogleOAuthProvider> */}
   )
 }
 
