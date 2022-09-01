@@ -45,12 +45,13 @@ const Auth = () => {
     }
 
     const googleSuccess = async (res) => {
+        // const result = res?.clientId; //profileObj???? DONT USE
+
         const token = res?.credential; //tokenId
         const result = jwt_decode(res?.credential);
-        // const result = res?.clientId; //profileObj???? DONT USE
         
         try {
-            dispatch({ type: 'AUTH', data: { result, token}});
+            dispatch({ type: 'AUTH', data: { result, token }});
 
             history.push('/'); //login, go to home page!!! AND gets localStorage.getItem('profile')!;
         } catch (error) {
