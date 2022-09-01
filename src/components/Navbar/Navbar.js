@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation }  from 'react-router-dom';
+import decode from 'jwt-decode';
 
 const Navbar = () => {
     const classes = useStyles();
@@ -29,7 +30,11 @@ const Navbar = () => {
     useEffect(() => {
         const token = user?.token;
 
-        // JWT...
+        if (token) {
+            const decodedToken = decode(token);
+
+            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+        }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location]) //COOOL! When location changes (uses useLocation), CALL this useEffect (setUser as 'profile' from localStorage)

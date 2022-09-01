@@ -8,7 +8,7 @@ const Posts = ({ setCurrentId }) => {
     const posts = useSelector((state) => state.posts) //from reducer/index.js ... gets from redux store!!
     const classes = useStyles();
 
-    console.log(posts);
+    // console.log(posts);
 
     return (
         !posts.length ? <CircularProgress /> : (
