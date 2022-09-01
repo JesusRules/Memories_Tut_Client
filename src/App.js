@@ -1,34 +1,22 @@
 import React from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
-
-import Posts from './components/Posts/Posts.js'
-import Form from './components/Form/Form.js'
-import memories from './images/memories.png';
-import useStyles from './styles';
+import { Container } from '@material-ui/core'
+import Navbar from './components/Navbar/Navbar.js'
+import Home from './components/Home/Home.js'
+import Auth from './components/Auth/Auth.js'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const App = () => {
-    const classes = useStyles();
-
     return (
+        <BrowserRouter>
         <Container maxWidth="lg">
-            <AppBar className={classes.appBar} position="static" color="inherit">
-                <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
-                <img className={classes.image} src={memories} alt="memories" height="60" />
-            </AppBar>
-            <Grow in>
-                <Container>
-                    <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Posts />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Form />
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Grow>
+            <Navbar />
+            <Switch>
+                <Route path='/' exact component={Home}/>
+                <Route path='/auth' exact component={Auth}/>
+            </Switch>
         </Container>
-    );
+        </BrowserRouter>
+    )
 }
 
 export default App;
