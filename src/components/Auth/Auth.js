@@ -4,6 +4,7 @@ import useStyles from './styles.js';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Input from './Input.js'
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 // import { GoogleLogin } from 'react-google-login';
 import { GoogleLogin } from '@react-oauth/google';
 // import Icon from './icon.js';
@@ -11,20 +12,25 @@ import Icon from '../../images/google-icon2.svg';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
 
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
+
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
+    const [formData, setFormData] = useState(initialState); //have to initialize states
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData);
     }
 
-    const handleChange = () => {
-        
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
     };
 
     const switchMode = () => {
@@ -33,14 +39,14 @@ const Auth = () => {
     }
 
     const googleSuccess = async (res) => {
+        const token = res?.credential; //tokenId
+        const result = jwt_decode(res?.credential);
+        // const result = res?.clientId; //profileObj???? DONT USE
         
         try {
-            // const result = res?.clientId; //profileObj???? DONT USE
-
-            const token = res?.credential; //tokenId
-            const result = jwt_decode(res?.credential);
-
             dispatch({ type: 'AUTH', data: { result, token}});
+
+            history.push('/'); //login, go to home page!!! AND gets localStorage.getItem('profile')!;
         } catch (error) {
             console.log(error);
         }
