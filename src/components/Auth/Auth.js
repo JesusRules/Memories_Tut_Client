@@ -3,8 +3,11 @@ import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@
 import useStyles from './styles.js';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Input from './Input.js'
-import { GoogleLogin } from 'react-google-login';
-import Icon from './icon.js';
+// import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@react-oauth/google';
+// import Icon from './icon.js';
+import Icon from '../../images/google-icon2.svg';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -26,10 +29,11 @@ const Auth = () => {
         setShowPassword(false);
     }
 
-    const googleSuccess = (res) => {
-        console.log(res);
+    const googleSuccess = async (res) => {
+        const result = res?.profileObj; //if error, doesnt throw one.
     }
-    const googleFailure = () => {
+    const googleFailure = (error) => {
+        console.log(error);
         console.log('Google Sign In was unsuccessful. Try Again Later');
     }
     
@@ -55,8 +59,13 @@ const Auth = () => {
                         { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password"  />}
                 </Grid>
 
+
+                <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                    {isSignup ? 'Sign Up' : 'Sign In'}
+                </Button>
+
                 <GoogleLogin 
-                    clientId="GOOGLE ID"
+                    clientId="348980586620-guceha6p9meflkheutqc2af9e44ikt47.apps.googleusercontent.com"
                     render={(renderProps) => (
                         <Button 
                         className={classes.googleButton} 
@@ -64,7 +73,8 @@ const Auth = () => {
                         fullWidth 
                         onClick={renderProps.onClick} 
                         disabled={renderProps.disabled} 
-                        startIcon={<Icon/>} 
+                        // startIcon={<Icon/>} 
+                        startIcon={<img src={Icon}/>} 
                         variant="contained">
                             Google Sign In
                         </Button>
@@ -74,9 +84,6 @@ const Auth = () => {
                     cookiePolicy='single_host_origin'
                 />
 
-                <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                    {isSignup ? 'Sign Up' : 'Sign In'}
-                </Button>
                 <Grid container justifyContent="flex-end">
                     <Grid item>
                         <Button onClick={switchMode}>
