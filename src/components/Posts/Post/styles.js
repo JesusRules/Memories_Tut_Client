@@ -20,6 +20,9 @@ export default makeStyles({
     borderRadius: '15px',
     height: '100%',
     position: 'relative',
+    
+    cursor:'pointer',
+    //cardActions no
   },
   overlay: {
     position: 'absolute',

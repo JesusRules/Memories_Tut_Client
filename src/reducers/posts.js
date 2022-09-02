@@ -1,6 +1,6 @@
-import { DELETE, UPDATE, FETCH_ALL, CREATE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes.js'
+import { DELETE, UPDATE, FETCH_ALL, CREATE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST } from '../constants/actionTypes.js'
 
-export default (state = { isLoading: true, posts: [] }, action) => {
+export default (state = { isLoading: true, posts: [], post: {} }, action) => {
     switch(action.type) {
         case START_LOADING:
             return { ...state, isLoading: true };
@@ -13,6 +13,10 @@ export default (state = { isLoading: true, posts: [] }, action) => {
                 currentPage: action.payload.currentPage,
                 numberOfPages: action.payload.numberOfPages,
             };
+            
+        case FETCH_POST:
+            return { ...state, post: action.payload };
+                
         case FETCH_BY_SEARCH:
             return { ...state, posts: action.payload };
         case 'LIKE':

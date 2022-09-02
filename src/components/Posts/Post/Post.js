@@ -8,7 +8,7 @@ import moment from 'moment';
 import useStyles from './styles';
 import { deletePost, likePost } from '../../../actions/posts.js'
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 const Post = ({ post, setCurrentId }) => {
     const classes = useStyles();
@@ -34,8 +34,8 @@ const Post = ({ post, setCurrentId }) => {
     }
 
     return (
-        <Card className={classes.card} raised elevation={6}>
-        <ButtonBase className={classes.cardActions} onClick={openPost}>
+        <Card onClick={openPost} className={classes.card} raised elevation={6}>
+        {/* <ButtonBase className={classes.cardActions} onClick={openPost}> */}
 
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
@@ -56,7 +56,7 @@ const Post = ({ post, setCurrentId }) => {
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
             </CardContent>
-            </ButtonBase>
+            {/* </ButtonBase> */}
 
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" onClick={() => { dispatch(likePost(post._id)) }} disabled={!user?.result} >
