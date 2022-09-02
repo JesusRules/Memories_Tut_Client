@@ -28,15 +28,16 @@ const Home = () => {
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]);
 
-    useEffect(() => {
-        setTimeout(() => {
-            dispatch(getPosts());
-          }, "1000")
-    }, [dispatch, currentId])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         dispatch(getPosts());
+    //       }, "1000")
+    // }, [dispatch, currentId])
 
     const searchPost = () => {
         if (search.trim() || tags) {
             dispatch(getPostsBySearch({ search, tags: tags.join(',') })); //Jerusalem,usa,canada,egypt,france
+            history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
         } else {
             history.push('/');
         }
@@ -53,6 +54,7 @@ const Home = () => {
     const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
 
   return (
+    // cool effect
     <Grow in>
     <Container maxWidth="xl">
         <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
@@ -82,7 +84,7 @@ const Home = () => {
             </AppBar>
                 <Form currentId={currentId} setCurrentId={setCurrentId} />
                 <Paper className={classes.pagination} elevation={6}>
-                    <Pagination />
+                    <Pagination page={page} />
                 </Paper>
             </Grid>
         </Grid>
