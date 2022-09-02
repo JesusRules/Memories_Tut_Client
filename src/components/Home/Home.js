@@ -10,6 +10,7 @@ import { getPosts } from '../../actions/posts.js'
 import Pagination from '../Pagination';
 import App from '../../App.js';
 import useStyles from './styles';
+import { getPostsBySearch } from '../../actions/posts.js'
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -33,9 +34,17 @@ const Home = () => {
           }, "1000")
     }, [dispatch, currentId])
 
+    const searchPost = () => {
+        if (search.trim() || tags) {
+            dispatch(getPostsBySearch({ search, tags: tags.join(',') })); //Jerusalem,usa,canada,egypt,france
+        } else {
+            history.push('/');
+        }
+    }
+
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) { //enterkey
-            // search post
+            searchPost();
         }
     }
 
@@ -69,6 +78,7 @@ const Home = () => {
                     label="Search Tags"
                     variant="outlined"
                 />
+                <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">Search</Button>
             </AppBar>
                 <Form currentId={currentId} setCurrentId={setCurrentId} />
                 <Paper className={classes.pagination} elevation={6}>
