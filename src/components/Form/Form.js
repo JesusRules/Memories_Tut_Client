@@ -4,14 +4,16 @@ import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts.js'
+import { useHistory } from 'react-router-dom';
 
 // GET THE CURRENT ID OF POST WERE ON
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({title: '', message: '', tags: '', selectedFile: ''});
-    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
+    const post = useSelector((state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
@@ -26,7 +28,7 @@ const Form = ({ currentId, setCurrentId }) => {
             dispatch(updatePost(currentId, {...postData, name: user?.result?.name }));
             clear();
         } else {
-            dispatch(createPost({...postData, name: user?.result?.name }));
+            dispatch(createPost({...postData, name: user?.result?.name }, history)); //passing in history object into dispatch(createPost)
             clear();
         }
     }

@@ -42,10 +42,12 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 }
 
 
-export const createPost = (post) => async (dispatch) => {
+export const createPost = (post, history) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
     const { data } = await api.createPost(post);
+
+    history.push(`/posts/${data._id}`);
   
       dispatch({ type: CREATE, payload: data });
       dispatch({ type: END_LOADING });
@@ -54,7 +56,6 @@ export const createPost = (post) => async (dispatch) => {
       console.log(error.message);
     }
   };
-
 
 export const updatePost = (id, post) => async (dispatch) => {
     try {   
@@ -83,5 +84,17 @@ export const likePost = (id) => async (dispatch) => {
         dispatch({ type: UPDATE, payload: data});
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const commentPost = (value, id) => async (dispatch) => { //async (dispatch) = redux thunk
+    try {
+        const { data } = await api.comment(value, id);
+
+        console.log(data);
+        // dispatch({ type: 'POSTED_COMMENT', payload: data});
+    } catch (error) {
+
+        console.log(error.message);
     }
 }

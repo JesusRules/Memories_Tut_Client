@@ -34,8 +34,8 @@ const Post = ({ post, setCurrentId }) => {
     }
 
     return (
-        <Card onClick={openPost} className={classes.card} raised elevation={6}>
-        {/* <ButtonBase className={classes.cardActions} onClick={openPost}> */}
+        <Card className={classes.card} raised elevation={6}>
+        <div style={{backgroundColor: 'none', marginBottom: '5px'}} onClick={openPost}>
 
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
@@ -56,7 +56,7 @@ const Post = ({ post, setCurrentId }) => {
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
             </CardContent>
-            {/* </ButtonBase> */}
+            </div>
 
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" onClick={() => { dispatch(likePost(post._id)) }} disabled={!user?.result} >
