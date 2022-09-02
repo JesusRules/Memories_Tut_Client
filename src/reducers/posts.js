@@ -1,6 +1,6 @@
-import { DELETE, UPDATE, FETCH_ALL, CREATE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST } from '../constants/actionTypes.js'
+import { DELETE, UPDATE, FETCH_ALL, CREATE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST, COMMENT } from '../constants/actionTypes.js'
 
-export default (state = { isLoading: true, posts: [], post: {} }, action) => {
+export default (state = { isLoading: true, posts: [], post: {}, comments: [] }, action) => {
     switch(action.type) {
         case START_LOADING:
             return { ...state, isLoading: true };
@@ -27,6 +27,16 @@ export default (state = { isLoading: true, posts: [], post: {} }, action) => {
             return { ...state, posts: state.posts.map((post) => post._id === action.payload._id ? action.payload : post)}; //map is basically making a new array
         case DELETE:
             return { ...state, posts: state.posts.filter((post) => post._id !== action.payload)}; //action.payload = id
+        case COMMENT: //like UPDATE^ only change the post that recieved the comment
+            return { 
+                ...state, 
+                posts: state.posts.map((post) => {
+                    if (post._id === action.payload._id) {
+                        return action.payload;
+                    }
+                    return post;
+                })
+            };
         default:
             return state;
     }
