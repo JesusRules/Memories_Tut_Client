@@ -2,9 +2,11 @@ import { DELETE, CREATE, UPDATE, FETCH_ALL, FETCH_BY_SEARCH } from '../constants
 import * as api from '../api';
 
 // Action Creators
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
     try {
-        const { data } = await api.fetchPosts(); //response
+        const { data } = await api.fetchPosts(page); //res
+
+        console.log(data);
 
         dispatch({ type: FETCH_ALL, payload: data });
     } catch (error) {

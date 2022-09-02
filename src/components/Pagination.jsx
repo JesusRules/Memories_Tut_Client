@@ -7,6 +7,7 @@ import {getPosts} from '../actions/posts.js'
 import useStyles from './styles';
 
 const Paginate = ({ page }) => {
+    const { numberOfPages } = useSelector((state) => state.posts);
     const classes = useStyles();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -14,16 +15,18 @@ const Paginate = ({ page }) => {
     // const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
 
     useEffect(() => {
-        if (page) {
-            dispatch(getPosts());
-        }
-    }, [page]);
+        // setTimeout(() => {
+            if (page) {
+                dispatch(getPosts(page));
+            }
+        // }, "1000")
+    }, [page, location, dispatch]);
 
     return (
         <Pagination
             classes={{ ul: classes.ul}}
-            count={5}
-            page={1}
+            count={numberOfPages}
+            page={Number(page) || 1} //dont hav a page, render at 1
             variant="outlined"
             color="primary"
             renderItem={(item) => (
