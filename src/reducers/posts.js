@@ -1,7 +1,11 @@
-import { DELETE, UPDATE, FETCH_ALL, CREATE, FETCH_BY_SEARCH } from '../constants/actionTypes.js'
+import { DELETE, UPDATE, FETCH_ALL, CREATE, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes.js'
 
-export default (state = [], action) => {
+export default (state = { isLoading: true, posts: [] }, action) => {
     switch(action.type) {
+        case START_LOADING:
+            return { ...state, isLoading: true };
+        case END_LOADING:
+            return { ...state, isLoading: false };
         case FETCH_ALL:
             return {
                 ...state,
@@ -11,12 +15,14 @@ export default (state = [], action) => {
             };
         case FETCH_BY_SEARCH:
             return { ...state, posts: action.payload };
+        case 'LIKE':
+            return { ...state, posts: state.posts.map((post) => post._id === action.payload._id ? action.payload : post)}; //map is basically making a new array
         case CREATE:
-            return [...state, action.payload];
+            return { ...state, posts: [...state.posts, action.payload]};
         case UPDATE:
-            return state.map((post) => post._id === action.payload._id ? action.payload : post); //map is basically making a new array
+            return { ...state, posts: state.posts.map((post) => post._id === action.payload._id ? action.payload : post)}; //map is basically making a new array
         case DELETE:
-            return state.filter((post) => post._id !== action.payload);
+            return { ...state, posts: state.posts.filter((post) => post._id !== action.payload)}; //action.payload = id
         default:
             return state;
     }

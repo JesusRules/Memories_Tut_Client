@@ -20,7 +20,7 @@ const Paginate = ({ page }) => {
                 dispatch(getPosts(page));
             }
         // }, "1000")
-    }, [page, location, dispatch]);
+    }, [page]);
 
     return (
         <Pagination
