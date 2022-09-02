@@ -29,7 +29,8 @@ const CommentSection = ({ post }) => { //post = props from PostDetails (parent)
         <div>
             <div className={classes.commentsOuterContainer}>
                 <div className={classes.commentsInnerContainer}>
-                    <Typography gutterBottom variant="h6">Comments</Typography>
+                    <Typography gutterBottom variant="h6">
+                    <strong>Comments</strong></Typography>
                     {comments && comments.map((c, i) => (
                         <Typography key={i} gutterBottom variant="subtitle1">
                             <strong>{c.split(': ')[0]}</strong>
