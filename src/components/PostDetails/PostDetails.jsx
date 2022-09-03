@@ -50,23 +50,36 @@ const PostDetails = () => {
     <Paper style={ {padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
-          <Typography variant="h4" style={{fontSize: 33,fontWeight: 'bold', paddingBottom: '5px'}} component="h2">{post.title}</Typography>
+          <Typography variant="h4" style={{fontSize: 25,fontWeight: 'bold', paddingBottom: '5px'}} component="h2">{post.title}</Typography>
           {post.tags && (
-          <Typography gutterBottom variant="h6" style={{fontStyle: 'italic', fontSize: 17, paddingBottom: '7px'}} color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+          <Typography gutterBottom variant="h6" style={{fontStyle: 'italic', fontSize: 15, paddingBottom: '7px'}} color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           )}
-          <Typography gutterBottom variant="body1" style={{paddingBottom: '15px', paddingTop: '8px', paddingLeft: '12px', fontSize: 28}} component="p">{post.message}</Typography>
-          <Typography variant="h6" style={{fontSize: 18}}>Creator: <strong>{post.name}</strong></Typography>
-          <Typography variant="body1" style={{paddingLeft: '5px', fontStyle: 'italic', fontSize: 16}}>{moment(post.createdAt).fromNow()}</Typography>
+          <Typography gutterBottom variant="body1" style={{paddingBottom: '15px', paddingTop: '8px', paddingLeft: '12px', fontSize: 22}} component="p">{post.message}</Typography>
+          <Typography variant="h6" style={{fontSize: 15.5}}>Creator: <strong>{post.name}</strong></Typography>
+          <Typography variant="body1" style={{paddingLeft: '5px', fontStyle: 'italic', fontSize: 13.5}}>{moment(post.createdAt).fromNow()}</Typography>
           <Divider style={{ margin: '20px 0' }} />
-          {/* <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography> */}
-          <Divider style={{ margin: '20px 0' }} />
+          {/* <Divider style={{ margin: '20px 0' }} />
+            <CommentSection post={post} />
+          <Divider style={{ margin: '20px 0' }} /> */}
+        <div className={classes.commentsAbove}>
+        <Divider style={{ margin: '20px 0' }} />
             <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
+        </div>
+
+
         <div className={classes.imageSection}>
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
+      
+      <div className={classes.commentsBelow}>
+      <Divider style={{ margin: '20px 0' }} />
+            <CommentSection post={post} />
+          <Divider style={{ margin: '20px 0' }} />
+          </div>
+
       {recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">You might also like:</Typography>

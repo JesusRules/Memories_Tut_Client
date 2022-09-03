@@ -30,7 +30,7 @@ const CommentSection = ({ post }) => { //post = props from PostDetails (parent)
             <div className={classes.commentsOuterContainer}>
                 <div className={classes.commentsInnerContainer}>
                     <Typography gutterBottom variant="h6">
-                    <strong>Comments</strong></Typography>
+                    <u style={{fontSize: 18}}>Comments</u></Typography>
                     {comments && comments.map((c, i) => (
                         <Typography key={i} gutterBottom variant="subtitle1">
                             <strong>{c.split(': ')[0]}</strong>
@@ -42,7 +42,7 @@ const CommentSection = ({ post }) => { //post = props from PostDetails (parent)
                 </div>
                 {user?.result?.name && (
                     <div style={{ width: '70%'}}>
-                        <Typography gutterBottom variant="h6">Write a Comment</Typography>
+                        <Typography gutterBottom variant="h6" style={{fontSize: 14}}>Write a Comment</Typography>
                         <TextField 
                             fullWidth
                             minRows={4}

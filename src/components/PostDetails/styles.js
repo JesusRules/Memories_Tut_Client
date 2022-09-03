@@ -50,4 +50,15 @@ export default makeStyles((theme) => ({
     overflowY: 'auto',
     marginRight: '30px',
   },
+
+  commentsBelow: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  commentsAbove: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
 }));

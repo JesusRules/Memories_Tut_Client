@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
         marginTop: '1rem',
         padding: '16px',
         [theme.breakpoints.down('sm')]: {
-            display: 'none',
+            // display: 'none',
         },
       },
       pagination2: {
