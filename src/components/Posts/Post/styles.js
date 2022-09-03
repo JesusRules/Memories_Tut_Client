@@ -12,8 +12,8 @@ export default makeStyles({
     paddingTop: '56.25%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     backgroundBlendMode: '',
-    filter: 'brightness(90%)',
-    opacity: '0.5',
+    filter: 'brightness(82%)',
+    // opacity: '0.5',
   },
   border: {
     border: 'solid',

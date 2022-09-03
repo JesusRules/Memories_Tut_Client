@@ -50,13 +50,13 @@ const PostDetails = () => {
     <Paper style={ {padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
-          <Typography variant="h3" component="h2">{post.title}</Typography>
+          <Typography variant="h4" style={{fontSize: 33,fontWeight: 'bold', paddingBottom: '5px'}} component="h2">{post.title}</Typography>
           {post.tags && (
-          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+          <Typography gutterBottom variant="h6" style={{fontStyle: 'italic', fontSize: 17, paddingBottom: '7px'}} color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           )}
-          <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
-          <Typography variant="h6">Created by: {post.name}</Typography>
-          <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
+          <Typography gutterBottom variant="body1" style={{paddingBottom: '15px', paddingTop: '8px', paddingLeft: '12px', fontSize: 28}} component="p">{post.message}</Typography>
+          <Typography variant="h6" style={{fontSize: 18}}>Creator: <strong>{post.name}</strong></Typography>
+          <Typography variant="body1" style={{paddingLeft: '5px', fontStyle: 'italic', fontSize: 16}}>{moment(post.createdAt).fromNow()}</Typography>
           <Divider style={{ margin: '20px 0' }} />
           {/* <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography> */}
           <Divider style={{ margin: '20px 0' }} />
@@ -74,10 +74,10 @@ const PostDetails = () => {
           <div className={classes.recommendedPosts}>
             {recommendedPosts.map(({title, message, name, likes, selectedFile, _id}) => (
               <div style={{margin: '20px', cursor: 'pointer'}} onClick={() => openPost(_id)} key={_id}>
-                <Typography gutterBottom variant="h6">{title}</Typography>
-                <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                <Typography gutterBottom variant="h6" style={{fontWeight: 'bold'}}>{title}</Typography>
+                <Typography gutterBottom variant="subtitle2" style={{fontStyle: 'italic'}}>{name}</Typography>
+                <Typography gutterBottom variant="subtitle2" style={{fontSize: 17}}>{message}</Typography>
+                {/* <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography> */}
                 <img src={selectedFile} width="200px" />
               </div>
             ))}

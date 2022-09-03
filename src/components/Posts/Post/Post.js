@@ -4,6 +4,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import EditIcon from '@material-ui/icons/Edit';
 import moment from 'moment';
 import useStyles from './styles';
 import { deletePost, likePost } from '../../../actions/posts.js'
@@ -43,6 +44,11 @@ const Post = ({ post, setCurrentId }) => {
         return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>
     }
 
+    const handleEditButton = () => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        setCurrentId(post._id);
+    }
+
     const openPost = () => {
         history.push(`/posts/${post._id}`);
     }
@@ -72,8 +78,11 @@ const Post = ({ post, setCurrentId }) => {
                 </Button>
             {(user?.result?.sub === post?.creator || user?.result?._id === post?.creator) && (
                 <div className={classes.overlay22}>
-                <Button style={{color: 'black'}} size="small" onClick={() => setCurrentId(post._id)}>
-                    <MoreHorizIcon fontSize="medium"/>
+                {/* onClick={ () => this.deleteComment(this.props.commentId, this.props.screamId)} */}
+                <Button style={{color: 'black'}} size="small" onClick={handleEditButton}>
+                    {/* <MoreHorizIcon fontSize="medium"/> */}
+                    <EditIcon fontSize="medium"/>
+                    
                 </Button>
             </div>
             )}
