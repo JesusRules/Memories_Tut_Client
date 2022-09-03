@@ -1,11 +1,19 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
+  touchingArea: {
+    // backgroundColor: 'red',
+    marginBottom: '5px',
+    // marginTop: '55px'
+  },
   media: {
-    height: 0,
+    // height: 0,
+    minHeight: '125px',
     paddingTop: '56.25%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    backgroundBlendMode: 'darken',
+    backgroundBlendMode: '',
+    filter: 'brightness(90%)',
+    opacity: '0.5',
   },
   border: {
     border: 'solid',
@@ -32,9 +40,12 @@ export default makeStyles({
   },
   overlay2: {
     position: 'absolute',
-    top: '20px',
-    right: '20px',
+    // top: '20px',
+    bottom: '5px',
+    // right: '20px',
+    left: '50%',
     color: 'white',
+    // padding: '20px'
   },
   grid: {
     display: 'flex',
@@ -52,4 +63,5 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+
 });

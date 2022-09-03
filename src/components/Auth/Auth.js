@@ -22,6 +22,11 @@ const Auth = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [formData, setFormData] = useState(initialState); //have to initialize states
+    const user = JSON.parse(localStorage.getItem('profile'));
+
+    if (user?.result?.sub || user?.result?._id) {
+        dispatch({ type: 'LOGOUT'});
+    }
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
